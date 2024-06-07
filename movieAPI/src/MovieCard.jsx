@@ -1,0 +1,72 @@
+import { useState, useEffect } from "react";
+import Heart from "react-heart";
+
+function MovieCard({ movies, stateToParentHome, setMovies }) {
+  const [savedMovies, setSavedMovies] = useState([]);
+
+  // Call the stateToParent callback when savedMovies state changes
+  useEffect(() => {
+    stateToParentHome(savedMovies);
+  }, [savedMovies, stateToParentHome]);
+
+  useEffect(() => {
+    console.log(savedMovies);
+  }, [savedMovies]);
+
+  function handleSaveMovie(movieIndex) {
+    //toggling movies isActive property for save feature
+    setMovies((prevMovies) => {
+      const updatedMovies = prevMovies.map((movie, index) => {
+        if (index === movieIndex) {
+          return { ...movie, isActive: !movie.isActive };
+        }
+        return movie;
+      });
+
+      return updatedMovies; // Return the updated movies array
+    });
+
+    const clickedMovie = movies[movieIndex];
+
+    setSavedMovies((prevSavedMovies) => {
+      if (!clickedMovie.isActive) {
+        // Adding the movie to savedMovies if it's not active or saved to the saved movie array
+        if (
+          !prevSavedMovies.some(
+            (prevMovie) => prevMovie.imdbID === clickedMovie.imdbID
+          )
+        ) {
+          return [...prevSavedMovies, clickedMovie];
+        }
+      } else if (clickedMovie.isActive) {
+        // Removing the movie from savedMovies if it's not active anymore.
+        return prevSavedMovies.filter(
+          (prevMovie) => prevMovie.imdbID !== clickedMovie.imdbID
+        );
+      }
+      return prevSavedMovies;
+    });
+  }
+
+  return (
+    <div className="flex flex-wrap gap-6 justify-center flex-start max-w-7xl">
+      {movies.map((movie, index) => (
+        <div key={index} className="w-56">
+          <img src={movie.Poster} className="h-72 w-full rounded-xl" />
+          <div className="flex justify-between mt-2">
+            <h3>{movie.Title}</h3>
+            <Heart
+              className={"w-6 mx-4"}
+              isActive={movie.isActive}
+              onClick={() => handleSaveMovie(index)}
+            />
+          </div>
+          <p>{movie.Type.charAt(0).toUpperCase() + movie.Type.slice(1)}</p>
+        </div>
+      ))}
+    </div>
+    //line 8 - Capitalising first letter of the movie type.
+  );
+}
+
+export default MovieCard;
