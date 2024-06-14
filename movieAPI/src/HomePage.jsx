@@ -2,11 +2,10 @@ import { useState } from "react";
 import MovieCard from "./MovieCard.jsx";
 import Navbar from "./Navbar.jsx";
 
-function HomePage({ handleStateToParentApp }) {
+function HomePage() {
   const [movies, setMovies] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [contentType, setContentType] = useState("");
-  const [savedMovies, setSavedMovies] = useState([]);
 
   const apiKEY = import.meta.env.VITE_API_KEY;
 
@@ -59,10 +58,40 @@ function HomePage({ handleStateToParentApp }) {
     fetchData();
   }
 
-  const handleChildStateSavedMovies = (data) => {
-    setSavedMovies(data);
-    handleStateToParentApp(data);
-  };
+  function handleSaveMovie(movieIndex) {
+    //toggling movies isActive property for save feature
+    setMovies((prevMovies) => {
+      const updatedMovies = prevMovies.map((movie, index) => {
+        if (index === movieIndex) {
+          return { ...movie, isActive: !movie.isActive };
+        }
+        return movie;
+      });
+
+      return updatedMovies; // Return the updated movies array
+    });
+
+    const clickedMovie = movies[movieIndex];
+
+    setSavedMovies((prevSavedMovies) => {
+      if (!clickedMovie.isActive) {
+        // Adding the movie to savedMovies if it's not active or saved to the saved movie array
+        if (
+          !prevSavedMovies.some(
+            (prevMovie) => prevMovie.imdbID === clickedMovie.imdbID
+          )
+        ) {
+          return [...prevSavedMovies, clickedMovie];
+        }
+      } else if (clickedMovie.isActive) {
+        // Removing the movie from savedMovies if it's not active anymore.
+        return prevSavedMovies.filter(
+          (prevMovie) => prevMovie.imdbID !== clickedMovie.imdbID
+        );
+      }
+      return prevSavedMovies;
+    });
+  }
 
   return (
     <div className="px-10 py-8 flex w-full flex-col items-center">
@@ -71,11 +100,7 @@ function HomePage({ handleStateToParentApp }) {
         clickMovieBtn={handleMovieBtn}
         clickSeriesBtn={handleSeriesBtn}
       />
-      <MovieCard
-        movies={movies || []}
-        setMovies={setMovies}
-        stateToParentHome={handleChildStateSavedMovies}
-      />
+      <MovieCard movies={movies || []} toggleSave={handleSaveMovie} />
     </div>
   );
 }

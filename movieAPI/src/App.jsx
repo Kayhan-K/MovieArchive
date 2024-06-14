@@ -7,14 +7,14 @@ import MyList from "./MyList.jsx";
 function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
-  const handleStateToParentApp = (data) => setSavedMovies(data);
-
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={<Home handleStateToParentApp={handleStateToParentApp} />}
+          element={
+            <Home savedMovies={savedMovies} setSavedMovies={setSavedMovies} />
+          }
         />
         <Route path="/My-List" element={<MyList savedMovies={savedMovies} />} />
       </Routes>
