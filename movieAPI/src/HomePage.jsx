@@ -23,7 +23,6 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
         isActive: false,
       }));
 
-      // First set the movies with the new array
       setMovies(newArray);
 
       // Then update the isActive property based on savedMovies

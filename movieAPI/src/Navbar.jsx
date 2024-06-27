@@ -1,5 +1,5 @@
 import { BsBookmarkFill } from "react-icons/bs";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({
   changeUserInput,
@@ -42,7 +42,7 @@ function Navbar({
           <BsBookmarkFill
             size={32}
             color={`${savedMovies.length > 0 ? "orange" : "grey"}`}
-            className="mr-6"
+            className="mr-6 cursor-pointer"
             onClick={toMyList}
           />
         </div>

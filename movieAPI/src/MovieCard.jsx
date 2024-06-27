@@ -19,7 +19,6 @@ function MovieCard({ movies, toggleSave }) {
           </div>
         ))}
     </div>
-    //line 8 - Capitalising first letter of the movie type.
   );
 }
 

@@ -25,34 +25,14 @@ function App() {
     localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
   }, [savedMovies]);
 
+  useEffect(() => {
+    console.log("savedMovies updated:", savedMovies);
+    console.log("Movies updated:", movies);
+  }, [savedMovies, movies]);
+
   function handleSaveMovie(movieIndex) {
-    toggleSaveIcon(movieIndex);
-
-    const clickedMovie = movies[movieIndex];
-
-    setSavedMovies((prevSavedMovies) => {
-      if (!clickedMovie.isActive) {
-        // Adding the movie to savedMovies if it's not active or saved to the saved movie array
-        if (
-          !prevSavedMovies.some(
-            (prevMovie) => prevMovie.imdbID === clickedMovie.imdbID
-          )
-        ) {
-          return [...prevSavedMovies, clickedMovie];
-        }
-      } else if (clickedMovie.isActive) {
-        // Removing the movie from savedMovies if it's not active anymore.
-        return prevSavedMovies.filter(
-          (prevMovie) => prevMovie.imdbID !== clickedMovie.imdbID
-        );
-      }
-      return prevSavedMovies;
-    });
-  }
-
-  function toggleSaveIcon(movieIndex) {
-    //toggling movies isActive property for save feature
     setMovies((prevMovies) => {
+      // Toggle isActive in movies array
       const updatedMovies = prevMovies.map((movie, index) => {
         if (index === movieIndex) {
           return { ...movie, isActive: !movie.isActive };
@@ -60,7 +40,29 @@ function App() {
         return movie;
       });
 
-      return updatedMovies; // Return the updated movies array
+      const clickedMovie = updatedMovies[movieIndex];
+
+      // Update savedMovies based on the new isActive state
+      setSavedMovies((prevSavedMovies) => {
+        if (clickedMovie.isActive) {
+          // Add the movie to savedMovies if it's active
+          if (
+            !prevSavedMovies.some(
+              (prevMovie) => prevMovie.imdbID === clickedMovie.imdbID
+            )
+          ) {
+            return [...prevSavedMovies, clickedMovie];
+          }
+        } else {
+          // Remove the movie from savedMovies if it's not active
+          return prevSavedMovies.filter(
+            (prevMovie) => prevMovie.imdbID !== clickedMovie.imdbID
+          );
+        }
+        return prevSavedMovies;
+      });
+
+      return updatedMovies;
     });
   }
 
