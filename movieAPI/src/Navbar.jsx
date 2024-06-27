@@ -1,41 +1,53 @@
-function Navbar({ changeUserInput, clickMovieBtn, clickSeriesBtn }) {
-  return (
-    <div className="flex w-full justify-center">
-      <div className="flex flex-col gap-5 mb-8 w-justify-center w-8/12 items-center">
-        <label
-          htmlFor="userSearch"
-          className="relative w-full block overflow-hidden border-b border-gray-200 bg-transparent pt-3 focus-within:border-blue-600"
-        >
-          <input
-            type="text"
-            onChange={(e) => changeUserInput(e.target.value)}
-            id="userSearch"
-            placeholder="Email"
-            className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-          />
+import { BsBookmarkFill } from "react-icons/bs";
+import { Navigate, useNavigate } from "react-router-dom";
 
-          <span className="absolute start-0 top-2 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-            Search
-          </span>
-        </label>
-        <div className="flex gap-10 w-full justify-center">
-          <a
-            className="inline-block  rounded text-center flex-1 bg-indigo-600 sm:px-8 px-6  py-3  font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
-            href="#"
-            onClick={clickMovieBtn}
-          >
+function Navbar({
+  changeUserInput,
+  clickMovieBtn,
+  clickSeriesBtn,
+  savedMovies,
+}) {
+  let navigate = useNavigate();
+
+  const toMyList = () => {
+    navigate("/My-list");
+    console.log("working");
+  };
+
+  return (
+    <>
+      <div className="navbar bg-base-100">
+        <div className="navbar-start">
+          <a className="btn btn-ghost text-xl">MovieArchive</a>
+        </div>
+        <div className="navbar-center gap-4">
+          <div className="form-control">
+            <input
+              type="text"
+              placeholder="Search"
+              id="userSearch"
+              className="input input-bordered w-24 md:w-auto"
+              onChange={(e) => changeUserInput(e.target.value)}
+            />
+          </div>
+
+          <a className="btn" onClick={clickMovieBtn}>
             Movie
           </a>
-          <a
-            className="inline-block rounded text-center flex-1 bg-indigo-600 sm:px-8 px-6 py-3  font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
-            href="#"
-            onClick={clickSeriesBtn}
-          >
+          <a className="btn" onClick={clickSeriesBtn}>
             Series
           </a>
         </div>
+        <div className="navbar-end">
+          <BsBookmarkFill
+            size={32}
+            color={`${savedMovies.length > 0 ? "orange" : "grey"}`}
+            className="mr-6"
+            onClick={toMyList}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
