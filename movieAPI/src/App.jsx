@@ -42,8 +42,10 @@ function App() {
 
       console.log(updatedMovies);
 
+      //check movie within all movies array
       let clickedMovie = updatedMovies.find((movie) => movie.imdbID === imdbID);
 
+      //check movie within savedMovies array if not found in all movies and toggle active state.
       if (!clickedMovie) {
         clickedMovie = savedMovies.find((movie) => movie.imdbID === imdbID);
         clickedMovie = { ...clickedMovie, isActive: !clickedMovie.isActive };

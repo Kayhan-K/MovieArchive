@@ -10,7 +10,7 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
 
   async function fetchData() {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${apiKEY}&type=${contentType}&s=${userInput}`
+      `http://www.omdbapi.com/?apikey=${apiKEY}&type=${contentType}&s=${userInput}&page=1`
     );
 
     const data = await response.json();

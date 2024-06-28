@@ -16,7 +16,7 @@ function Navbar({
 
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 pt-6">
         <div className="navbar-start">
           <a className="btn btn-ghost text-xl">MovieArchive</a>
         </div>
