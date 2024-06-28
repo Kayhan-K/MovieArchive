@@ -64,7 +64,13 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
         clickSeriesBtn={handleSeriesBtn}
         savedMovies={savedMovies}
       />
-      <MovieCard movies={movies || []} toggleSave={handleSaveMovie} />
+      {movies.length > 0 ? (
+        <MovieCard movies={movies || []} toggleSave={handleSaveMovie} />
+      ) : (
+        <h1 className="text-4xl font-thin text-gray-400 w-full h-screen flex justify-center items-center">
+          Please search for a Movie or Series
+        </h1>
+      )}
     </div>
   );
 }

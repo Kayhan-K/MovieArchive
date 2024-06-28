@@ -21,7 +21,9 @@ function MyList({ savedMovies, toggleSave }) {
         <MovieCard movies={savedMovies} toggleSave={toggleSave} />
       ) : (
         <div className="w-full h-screen flex justify-center items-center">
-          <h1 className="font-4xl">You have no movies.</h1>
+          <h1 className="text-4xl font-thin text-gray-400">
+            You have no saved movies or series.
+          </h1>
         </div>
       )}
     </>
