@@ -40,14 +40,19 @@ function App() {
         return movie;
       });
 
-      const clickedMovie = updatedMovies.find(
-        (movie) => movie.imdbID === imdbID
-      );
+      console.log(updatedMovies);
+
+      let clickedMovie = updatedMovies.find((movie) => movie.imdbID === imdbID);
+
+      if (!clickedMovie) {
+        clickedMovie = savedMovies.find((movie) => movie.imdbID === imdbID);
+        clickedMovie = { ...clickedMovie, isActive: !clickedMovie.isActive };
+      }
 
       // Update savedMovies based on the new isActive state
       setSavedMovies((prevSavedMovies) => {
         if (clickedMovie.isActive) {
-          // Add the movie to savedMovies if it's active
+          // Add the movie to savedMovies if it's activated
           if (
             !prevSavedMovies.some(
               (prevMovie) => prevMovie.imdbID === clickedMovie.imdbID

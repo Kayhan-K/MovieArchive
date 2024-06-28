@@ -57,7 +57,7 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
   }
 
   return (
-    <div className="gap-y-12 flex w-full flex-col items-center">
+    <div className="flex w-full flex-col items-center h-screen gap-y-6">
       <Navbar
         changeUserInput={handleUserInput}
         clickMovieBtn={handleMovieBtn}
