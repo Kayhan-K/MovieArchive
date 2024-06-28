@@ -13,7 +13,7 @@ Movie Archive is a web application built with Vite and React that allows users t
 ## Technologies Used
 
 - **Frontend**: React, Tailwind CSS
-- **State Management**: React hooks (useState, useEffect, useCallback)
+- **State Management**: React hooks (useState, useEffect)
 - **Routing**: React Router
 - **API**: OMDB API
 
@@ -21,7 +21,6 @@ Movie Archive is a web application built with Vite and React that allows users t
 
 - **State Management**: Managing component state using React's useState hook.
 - **Side Effects**: Fetching data and handling side effects with useEffect.
-- **Callback Functions**: Using useCallback to optimize performance by memoizing functions.
 - **Routing**: Implementing client-side routing with React Router.
 - **Conditional Rendering**: Implementing features like liking/unliking with conditional rendering.
 
