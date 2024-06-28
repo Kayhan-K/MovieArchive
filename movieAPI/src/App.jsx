@@ -30,17 +30,19 @@ function App() {
     console.log("Movies updated:", movies);
   }, [savedMovies, movies]);
 
-  function handleSaveMovie(movieIndex) {
+  function handleSaveMovie(imdbID) {
     setMovies((prevMovies) => {
       // Toggle isActive in movies array
-      const updatedMovies = prevMovies.map((movie, index) => {
-        if (index === movieIndex) {
+      const updatedMovies = prevMovies.map((movie) => {
+        if (movie.imdbID === imdbID) {
           return { ...movie, isActive: !movie.isActive };
         }
         return movie;
       });
 
-      const clickedMovie = updatedMovies[movieIndex];
+      const clickedMovie = updatedMovies.find(
+        (movie) => movie.imdbID === imdbID
+      );
 
       // Update savedMovies based on the new isActive state
       setSavedMovies((prevSavedMovies) => {

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import MovieCard from "./MovieCard.jsx";
+import MovieCard from "./MovieCard"; // Make sure to import the MovieCard component
 
 function MyList({ savedMovies, toggleSave }) {
   let navigate = useNavigate();
@@ -17,7 +17,13 @@ function MyList({ savedMovies, toggleSave }) {
           MovieArchive
         </a>
       </div>
-      <MovieCard movies={savedMovies} toggleSave={toggleSave} />
+      {savedMovies.length > 0 ? (
+        <MovieCard movies={savedMovies} toggleSave={toggleSave} />
+      ) : (
+        <div className="w-full h-screen flex justify-center items-center">
+          <h1 className="font-4xl">You have no movies.</h1>
+        </div>
+      )}
     </>
   );
 }
