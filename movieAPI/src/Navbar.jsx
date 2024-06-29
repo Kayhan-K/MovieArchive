@@ -1,5 +1,6 @@
 import { BsBookmarkFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 function Navbar({
   changeUserInput,
@@ -8,6 +9,17 @@ function Navbar({
   savedMovies,
 }) {
   let navigate = useNavigate();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 500);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toMyList = () => {
     navigate("/My-list");
@@ -16,9 +28,17 @@ function Navbar({
 
   return (
     <>
-      <div className="navbar bg-base-100 pt-6">
-        <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">MovieArchive</a>
+      <div className="navbar bg-base-100 sm:pt-6 flex flex-col gap-y-2 sm:gap-y-0 min-[500px]:flex-row w-full">
+        <div className="navbar-start flex items-center">
+          <a className="btn btn-ghost text-xl relative">MovieArchive</a>
+          {isSmallScreen && (
+            <BsBookmarkFill
+              size={32}
+              color={`${savedMovies.length > 0 ? "orange" : "grey"}`}
+              className="ml-4 cursor-pointer absolute top-3 right-10"
+              onClick={toMyList}
+            />
+          )}
         </div>
         <div className="navbar-center gap-4">
           <div className="form-control">
@@ -39,12 +59,14 @@ function Navbar({
           </a>
         </div>
         <div className="navbar-end">
-          <BsBookmarkFill
-            size={32}
-            color={`${savedMovies.length > 0 ? "orange" : "grey"}`}
-            className="mr-6 cursor-pointer"
-            onClick={toMyList}
-          />
+          {!isSmallScreen && (
+            <BsBookmarkFill
+              size={32}
+              color={`${savedMovies.length > 0 ? "orange" : "grey"}`}
+              className="mr-6 cursor-pointer"
+              onClick={toMyList}
+            />
+          )}
         </div>
       </div>
     </>

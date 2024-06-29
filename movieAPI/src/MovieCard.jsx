@@ -31,33 +31,31 @@ function MovieCard({ movies, toggleSave }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-x-10 gap-y-10 justify-center items-center flex-start max-w-8xl cursor-pointer h-4/5 sm:px-12 lg:px-36 ">
+    <div className="flex flex-wrap gap-x-6 gap-y-24 sm:gap-x-10 sm:gap-y-20 justify-center items-center flex-start max-w-8xl cursor-pointer h-4/5 sm:px-12 lg:px-36 ">
       {Array.isArray(movies) &&
         movies.map((movie) => (
           <div
             key={movie.imdbID}
-            className="h-80 w-60 relative"
+            className="w-32 h-48 relative min-[420px]:min-h-56 min-[420px]:min-w-44 md:h-64 md:w-52"
             onMouseEnter={() => onMouseHover(movie.imdbID)}
             onMouseLeave={onMouseLeave}
           >
             <img
               src={movie.Poster}
-              className="w-full h-72 rounded-xl "
+              className="w-full h-full rounded-xl "
               alt={movie.Title}
             />
             {hovered && movieInfo && movie.imdbID === movieInfo.imdbID && (
-              <div className="absolute top-0 flex flex-col gap-y-3 w-full h-72 text-white justify-center p-3 pt-6 bg-gray-700 bg-opacity-80 backdrop-blur-lg rounded-md">
-                <h2 className="text-sm text-left font-normal">
-                  {movieInfo.Plot}
-                </h2>
-                <p>Released: {movieInfo.Released}</p>
-                <p>Runtime: {movieInfo.Runtime}</p>
-                <p>Rated: {movieInfo.Rated}</p>
+              <div className="absolute text-[10px] md:text-sm overflow-auto top-0 flex flex-col gap-y-1 w-full h-48 min-[420px]:min-h-56 md:h-64 text-white justify-center p-3 pt-6 bg-gray-700 bg-opacity-80 backdrop-blur-lg rounded-md">
+                <h2 className=" text-left font-normal">{movieInfo.Plot}</h2>
+                <p className="font-bold">Released: {movieInfo.Released}</p>
+                <p className="font-bold">Runtime: {movieInfo.Runtime}</p>
+                <p className="font-bold">Rated: {movieInfo.Rated}</p>
               </div>
             )}
 
             <div className="flex justify-between mt-2 items-center">
-              <h3>{movie.Title}</h3>
+              <h3 className="text-xs md:text-sm">{movie.Title}</h3>
               <Heart
                 className="min-w-6 mx-4 "
                 isActive={movie.isActive}
