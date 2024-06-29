@@ -43,7 +43,9 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
   }
 
   function handleUserInput(input) {
-    setUserInput(input);
+    //remove whitespace end of user input
+    const trimmedInput = input.trimEnd();
+    setUserInput(trimmedInput);
   }
 
   function handleMovieBtn() {
@@ -67,7 +69,7 @@ function HomePage({ handleSaveMovie, savedMovies, setMovies, movies }) {
       {movies.length > 0 ? (
         <MovieCard movies={movies || []} toggleSave={handleSaveMovie} />
       ) : (
-        <h1 className="text-4xl font-thin text-gray-400 w-full h-screen flex justify-center items-center">
+        <h1 className="md:text-4xl font-thin text-gray-400 w-full h-screen flex justify-center items-center">
           Please search for a Movie or Series
         </h1>
       )}
