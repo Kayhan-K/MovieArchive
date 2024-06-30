@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+
 import MovieCard from "./MovieCard"; // Make sure to import the MovieCard component
 
 function MyList({ savedMovies, toggleSave }) {
@@ -13,7 +15,8 @@ function MyList({ savedMovies, toggleSave }) {
   return (
     <>
       <div className="navbar bg-base-100">
-        <a className="btn btn-ghost text-2xl ml-10" onClick={toHome}>
+        <a className="btn btn-ghost text-2xl ml-10 mt-4" onClick={toHome}>
+          <BsArrowLeft />
           MovieArchive
         </a>
       </div>

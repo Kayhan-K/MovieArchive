@@ -31,7 +31,7 @@ function MovieCard({ movies, toggleSave }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-x-6 gap-y-24 xl:gap-y-16 sm:gap-x-10 sm:gap-y-20 justify-center items-center flex-start max-w-8xl cursor-pointer h-4/5 sm:px-12 lg:px-36 ">
+    <div className="flex flex-wrap gap-x-6 gap-y-24 xl:gap-y-12 sm:gap-x-10 sm:gap-y-20 justify-center items-center flex-start max-w-8xl cursor-pointer h-4/5 sm:px-12 lg:px-36 ">
       {Array.isArray(movies) &&
         movies.map((movie) => (
           <div
@@ -55,15 +55,21 @@ function MovieCard({ movies, toggleSave }) {
             )}
 
             <div className="flex justify-between mt-2 items-center">
-              <h3
-                className={`text-xs ${
-                  movie.Title.length > 20 ? "text-[9px]" : "md:text-sm"
-                } md:${movie.Title.length > 20 && "text-xs"}`}
-              >
-                {movie.Title}
-              </h3>
+              {movie.Title.length > 25 ? (
+                <h3 className="text-[8px] sm:text-sm">
+                  {movie.Title.slice(0, 32)}...
+                </h3>
+              ) : (
+                <h3
+                  className={`text-xs ${
+                    movie.Title.length > 20 ? "text-[9px]" : "md:text-sm"
+                  } md:${movie.Title.length > 20 && "text-xs"} `}
+                >
+                  {movie.Title}
+                </h3>
+              )}
               <Heart
-                className="w-4 mx-4 md:w-6 "
+                className="w-5 mx-4 md:w-7 "
                 isActive={movie.isActive}
                 onClick={() => toggleSave(movie.imdbID)}
               />
